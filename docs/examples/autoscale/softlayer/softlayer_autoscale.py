@@ -73,4 +73,3 @@ pprint(nodes)
 # delete group completely with all of its resources
 # (members, policies, alarms)
 as_driver.delete_auto_scale_group(group=group)
-

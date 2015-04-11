@@ -21,6 +21,7 @@ from libcloud.utils.misc import reverse_dict
 from libcloud.utils.xml import fixxpath, findtext, findall
 from libcloud.common.aws import SignedAWSConnection, AWSGenericResponse,\
     AWSObjectDoesntExist
+from libcloud.common.aws import DEFAULT_SIGNATURE_VERSION
 from libcloud.common.types import LibcloudError
 from libcloud.autoscale.providers import Provider
 from libcloud.autoscale.base import AutoScaleDriver, AutoScaleGroup,\
@@ -290,7 +291,7 @@ class AutoScaleResponse(AWSGenericResponse):
 
 class AutoScaleConnection(EC2Connection):
     """
-    Represents a single connection to the EC2 Endpoint.
+    Represents a single connection to the AutoScaling Endpoint.
     """
 
     version = AUTOSCALE_API_VERSION
@@ -307,6 +308,7 @@ class AWSAutoScaleDriver(AutoScaleDriver):
     name = 'Amazon EC2'
     website = 'http://aws.amazon.com/ec2/'
     path = '/'
+    signature_version = DEFAULT_SIGNATURE_VERSION
 
     _VALUE_TO_SCALE_ADJUSTMENT_TYPE_MAP = {
         'ChangeInCapacity': AutoScaleAdjustmentType.CHANGE_IN_CAPACITY,
@@ -343,6 +345,9 @@ class AWSAutoScaleDriver(AutoScaleDriver):
         self.country = details['country']
 
         host = host or details['endpoint']
+
+        self.signature_version = details.pop('signature_version',
+                                             DEFAULT_SIGNATURE_VERSION)
 
         if kwargs.get('ec2_driver'):
             self.ec2 = kwargs['ec2_driver']
@@ -657,7 +662,7 @@ class AWSAutoScaleDriver(AutoScaleDriver):
                             namespace=AUTOSCALE_NAMESPACE):
 
             az = findtext(element=item, xpath='member',
-                           namespace=AUTOSCALE_NAMESPACE)
+                          namespace=AUTOSCALE_NAMESPACE)
             if az is not None:
                 availability_zones.append(az)
 
@@ -665,13 +670,14 @@ class AWSAutoScaleDriver(AutoScaleDriver):
 
     def _to_virtual_guest_template(self, **attrs):
         """
-        Return launch configuration template based on supplied 
+        Return launch configuration template based on supplied
         attributes.
         """
         template = {}
 
         image = attrs['image']
         size = attrs['size']
+        name = attrs['name']
 
         template['ImageId'] = image.id
         template['InstanceType'] = size.id
@@ -680,7 +686,7 @@ class AWSAutoScaleDriver(AutoScaleDriver):
             template['LaunchConfigurationName'] = \
                 attrs['ex_launch_configuration_name']
         else:
-            template['LaunchConfigurationName'] = attrs
+            template['LaunchConfigurationName'] = name
 
         if 'ex_keyname' in attrs:
             template['KeyName'] = attrs['ex_keyname']
@@ -693,4 +699,3 @@ class AWSAutoScaleDriver(AutoScaleDriver):
                 .decode('utf-8')
 
         return template
- 

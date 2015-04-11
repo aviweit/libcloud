@@ -12,41 +12,18 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-class Provider(object):
 
-# TODO: elaborate more on these specific AWS regions
+
+class Provider(object):
     """
     Defines for each of the supported providers
 
-    :cvar AWS_AUTOSCALE: Amazon AWS US N. Virgina
-    :cvar AWS_AUTOSCALE_US_EAST: Amazon AWS US N. Virgina
-    :cvar AWS_AUTOSCALE_EU_WEST: Amazon AWS EU Ireland
-    :cvar AWS_AUTOSCALE_US_WEST: Amazon AWS US N. California
-    :cvar AWS_AUTOSCALE_US_WEST_OREGON: Amazon AWS US Oregon
-    :cvar AWS_AUTOSCALE_AP_SOUTHEAST: Amazon AWS US N. California
-    :cvar AWS_AUTOSCALE_US_WEST: Amazon AWS US N. California
-    :cvar AWS_AUTOSCALE_US_WEST: Amazon AWS US N. California
+    :cvar AWS_AUTOSCALE: Amazon AutoScale
+    :cvar: AWS_CLOUDWATCH: Amazon CloudWatch
     :cvar SOFTLAYER: Softlayer
     """
-    AWS_AUTOSCALE = 'aws_autoscale_us_east'
-    AWS_CLOUDWATCH = 'aws_cloudwatch_us_east'
-
-    AWS_AUTOSCALE_US_EAST = 'aws_autoscale_us_east'
-    AWS_AUTOSCALE_EU_WEST = 'aws_autoscale_eu_west'
-    AWS_AUTOSCALE_US_WEST = 'aws_autoscale_us_west'
-    AWS_AUTOSCALE_US_WEST_OREGON = 'aws_autoscale_us_west_oregon'
-    AWS_AUTOSCALE_AP_SOUTHEAST = 'aws_autoscale_ap_southeast'
-    AWS_AUTOSCALE_AP_SOUTHEAST2 = 'aws_autoscale_ap_southeast_2'
-    AWS_AUTOSCALE_AP_NORTHEAST = 'aws_autoscale_ap_northeast'
-    AWS_AUTOSCALE_SA_EAST = 'aws_autoscale_sa_east'
-
-    AWS_CLOUDWATCH_US_EAST = 'aws_cloudwatch_us_east'
-    AWS_CLOUDWATCH_US_WEST = 'aws_cloudwatch_us_west'
-    AWS_CLOUDWATCH_US_WEST_OREGON = 'aws_cloudwatch_us_west_oregon'
-    AWS_CLOUDWATCH_EU_WEST = 'aws_cloudwatch_eu_west'
-    AWS_CLOUDWATCH_AP_SOUTHEAST = 'aws_cloudwatch_ap_southeast'
-    AWS_CLOUDWATCH_AP_SOUTHEAST2 = 'aws_cloudwatch_ap_southeast_2'
-
+    AWS_AUTOSCALE = 'aws_autoscale'
+    AWS_CLOUDWATCH = 'aws_cloudwatch'
     SOFTLAYER = 'softlayer'
 
 

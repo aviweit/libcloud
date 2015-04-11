@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from libcloud.common.base import ConnectionKey, BaseDriver, LibcloudError
-from libcloud.autoscale.types import AutoScaleTerminationPolicy
+
 
 class AutoScaleGroup(object):
     """Base class for auto scale group
@@ -77,7 +77,6 @@ class AutoScalePolicy(object):
         self.driver = driver
         self.extra = extra or {}
 
-
     def __repr__(self):
         return (
             ('<AutoScalePolicy: id=%s, name=%s, adjustment_type=%s, '
@@ -121,7 +120,6 @@ class AutoScaleAlarm(object):
         self.driver = driver
         self.extra = extra or {}
 
-
     def __repr__(self):
         return (
             ('<AutoScaleAlarm: id=%s, metric_name=%s, period=%s, '
@@ -138,10 +136,11 @@ class AutoScaleDriver(BaseDriver):
     This class is always subclassed by a specific driver.
 
     """
-    name = None
-    website = None
-
     connectionCls = ConnectionKey
+
+    name = None
+    type = None
+    port = None
 
     _SCALE_OPERATOR_TYPE_TO_VALUE_MAP = {}
     _VALUE_TO_SCALE_OPERATOR_TYPE_MAP = {}
@@ -156,10 +155,10 @@ class AutoScaleDriver(BaseDriver):
     _VALUE_TO_TERMINATION_POLICY_MAP = {}
 
     def __init__(self, key, secret=None, secure=True, host=None,
-                 port=None, **kwargs):
-        super(AutoScaleDriver, self).__init__(key=key, secret=secret,
-                                              secure=secure, host=host,
-                                              port=port, **kwargs)
+                 port=None, api_version=None, **kwargs):
+        super(AutoScaleDriver, self).__init__(
+            key=key, secret=secret, secure=secure, host=host,
+            port=port, api_version=api_version, **kwargs)
 
     def create_auto_scale_group(
             self, group_name, min_size, max_size, cooldown,

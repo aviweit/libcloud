@@ -1,5 +1,6 @@
 from pprint import pprint
 
+from libcloud.compute.base import NodeImage
 from libcloud.compute.types import Provider as compute_provider
 from libcloud.compute.providers import get_driver \
     as compute_get_driver
@@ -27,12 +28,12 @@ image = [i for i in images if i.id == IMAGE_ID][0]
 sizes = ec2_driver.list_sizes()
 size = [s for s in sizes if s.id == SIZE_ID][0]
 
-location = ec2_driver.list_locations()[1]
+location = ec2_driver.list_locations()[0]
 group = as_driver.create_auto_scale_group(
     group_name='libcloud-group', min_size=2, max_size=5,
     cooldown=300,
     termination_policies=[AutoScaleTerminationPolicy.CLOSEST_TO_NEXT_CHARGE],
-    image=image, size=size, location=location)
+    name='inst-name', image=image, size=size, location=location)
 
 pprint(group)
 # create scale up policy
@@ -78,4 +79,3 @@ pprint(nodes)
 # delete group completely with all of its resources
 # (members, policies, alarms)
 as_driver.delete_auto_scale_group(group=group)
-

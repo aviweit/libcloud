@@ -22,17 +22,13 @@ __all__ = [
     "get_driver",
 ]
 
-# TODO: add all supported regions
 DRIVERS = {
     Provider.AWS_AUTOSCALE:
     ('libcloud.autoscale.drivers.aws', 'AWSAutoScaleDriver'),
-
     Provider.AWS_CLOUDWATCH:
     ('libcloud.autoscale.drivers.aws', 'AWSCloudWatchDriver'),
-
     Provider.SOFTLAYER:
     ('libcloud.autoscale.drivers.softlayer', 'SoftLayerAutoScaleDriver'),
-
 }
 
 
@@ -42,4 +38,3 @@ def get_driver(provider):
 
 def set_driver(provider, module, klass):
     return set_provider_driver(DRIVERS, provider, module, klass)
-
