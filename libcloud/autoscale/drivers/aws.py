@@ -35,7 +35,6 @@ AUTOSCALE_API_VERSION = '2011-01-01'
 AUTOSCALE_NAMESPACE = 'http://autoscaling.amazonaws.com/doc/%s/' % \
     (AUTOSCALE_API_VERSION)
 
-# TODO: add all supported regions
 AUTOSCALE_REGION_DETAILS = {
     # US East (Northern Virginia) Region
     'us-east-1': {
@@ -59,15 +58,43 @@ AUTOSCALE_REGION_DETAILS = {
         'endpoint': 'autoscaling.eu-west-1.amazonaws.com',
         'api_name': 'autoscaling_eu_west',
         'country': 'Ireland'
+    },
+    # EU (Frankfurt)
+    'eu-central-1': {
+        'endpoint': 'autoscaling.eu-central-1.amazonaws.com',
+        'api_name': 'autoscaling_eu_central',
+        'country': 'Germany'
+    },
+    # Asia Pacific (Singapore)
+    'ap-southeast-1': {
+        'endpoint': 'autoscaling.ap-southeast-1.amazonaws.com',
+        'api_name': 'autoscaling_ap_southeast',
+        'country': 'Singapore'
+    },
+    # Asia Pacific (Sydney)
+    'ap-southeast-2': {
+        'endpoint': 'autoscaling.ap-southeast-2.amazonaws.com',
+        'api_name': 'autoscaling_ap_southeast_2',
+        'country': 'Australia'
+    },
+    # Asia Pacific (Tokyo)
+    'ap-northeast-1': {
+        'endpoint': 'autoscaling.ap-northeast-1.amazonaws.com',
+        'api_name': 'autoscaling_ap_northeast',
+        'country': 'Japan'
+    },
+    # South America (Sao Paulo)
+    'sa-east-1': {
+        'endpoint': 'autoscaling.sa-east-1.amazonaws.com',
+        'api_name': 'autoscaling_sa_east',
+        'country': 'Brazil'
     }
 }
-
 
 CLOUDWATCH_API_VERSION = '2010-08-01'
 CLOUDWATCH_NAMESPACE = 'http://monitoring.amazonaws.com/doc/%s/' %\
                        (CLOUDWATCH_API_VERSION)
 
-# TODO: add all supported regions
 CLOUDWATCH_REGION_DETAILS = {
     # US East (Northern Virginia) Region
     'us-east-1': {
@@ -87,10 +114,41 @@ CLOUDWATCH_REGION_DETAILS = {
         'api_name': 'cloudwatch_us_west_oregon',
         'country': 'USA'
     },
+    # EU (Ireland)
     'eu-west-1': {
         'endpoint': 'monitoring.eu-west-1.amazonaws.com',
         'api_name': 'cloudwatch_eu_west',
         'country': 'Ireland'
+    },
+    # EU (Frankfurt)
+    'eu-central-1': {
+        'endpoint': 'monitoring.eu-central-1.amazonaws.com',
+        'api_name': 'cloudwatch_eu_central',
+        'country': 'Germany'
+    },
+    # Asia Pacific (Singapore)
+    'ap-southeast-1': {
+        'endpoint': 'monitoring.ap-southeast-1.amazonaws.com',
+        'api_name': 'cloudwatch_ap_southeast',
+        'country': 'Singapore'
+    },
+    # Asia Pacific (Sydney)
+    'ap-southeast-2': {
+        'endpoint': 'monitoring.ap-southeast-2.amazonaws.com',
+        'api_name': 'cloudwatch_ap_southeast_2',
+        'country': 'Australia'
+    },
+    # Asia Pacific (Tokyo)
+    'ap-northeast-1': {
+        'endpoint': 'monitoring.ap-northeast-1.amazonaws.com',
+        'api_name': 'cloudwatch_ap_northeast',
+        'country': 'Japan'
+    },
+    # South America (Sao Paulo)
+    'sa-east-1': {
+        'endpoint': 'monitoring.sa-east-1.amazonaws.com',
+        'api_name': 'cloudwatch_sa_east',
+        'country': 'Japan'
     }
 }
 
