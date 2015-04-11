@@ -12,7 +12,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import base64
 import time
 
 from libcloud.common.types import LibcloudError
@@ -24,105 +23,11 @@ from libcloud.autoscale.base import AutoScaleDriver, AutoScalePolicy, \
 from libcloud.autoscale.types import AutoScaleOperator, \
     AutoScaleTerminationPolicy, AutoScaleAdjustmentType, AutoScaleMetric
 from libcloud.autoscale.types import Provider
-from libcloud.compute.base import NodeSize
 from libcloud.utils.misc import find, reverse_dict
 from libcloud.compute.drivers.softlayer import SoftLayerNodeDriver
 
-# TODO: copied from compute.softlayer
-SL_BASE_TEMPLATES = [
-    {
-        'name': '1 CPU, 1GB ram, 25GB',
-        'ram': 1024,
-        'disk': 25,
-        'cpus': 1,
-    }, {
-        'name': '1 CPU, 1GB ram, 100GB',
-        'ram': 1024,
-        'disk': 100,
-        'cpus': 1,
-    }, {
-        'name': '1 CPU, 2GB ram, 100GB',
-        'ram': 2 * 1024,
-        'disk': 100,
-        'cpus': 1,
-    }, {
-        'name': '1 CPU, 4GB ram, 100GB',
-        'ram': 4 * 1024,
-        'disk': 100,
-        'cpus': 1,
-    }, {
-        'name': '2 CPU, 2GB ram, 100GB',
-        'ram': 2 * 1024,
-        'disk': 100,
-        'cpus': 2,
-    }, {
-        'name': '2 CPU, 4GB ram, 100GB',
-        'ram': 4 * 1024,
-        'disk': 100,
-        'cpus': 2,
-    }, {
-        'name': '2 CPU, 8GB ram, 100GB',
-        'ram': 8 * 1024,
-        'disk': 100,
-        'cpus': 2,
-    }, {
-        'name': '4 CPU, 4GB ram, 100GB',
-        'ram': 4 * 1024,
-        'disk': 100,
-        'cpus': 4,
-    }, {
-        'name': '4 CPU, 8GB ram, 100GB',
-        'ram': 8 * 1024,
-        'disk': 100,
-        'cpus': 4,
-    }, {
-        'name': '6 CPU, 4GB ram, 100GB',
-        'ram': 4 * 1024,
-        'disk': 100,
-        'cpus': 6,
-    }, {
-        'name': '6 CPU, 8GB ram, 100GB',
-        'ram': 8 * 1024,
-        'disk': 100,
-        'cpus': 6,
-    }, {
-        'name': '8 CPU, 8GB ram, 100GB',
-        'ram': 8 * 1024,
-        'disk': 100,
-        'cpus': 8,
-    }, {
-        'name': '8 CPU, 16GB ram, 100GB',
-        'ram': 16 * 1024,
-        'disk': 100,
-        'cpus': 8,
-    }]
-
-# TODO: copied from compute.softlayer
-SL_TEMPLATES = {}
-for i, template in enumerate(SL_BASE_TEMPLATES):
-    # Add local disk templates
-    local = template.copy()
-    local['local_disk'] = True
-    SL_TEMPLATES[i] = local
-
-# TODO: copied from compute.softlayer
-DEFAULT_DOMAIN = 'example.com'
-DEFAULT_CPU_SIZE = 1
-DEFAULT_RAM_SIZE = 2048
-DEFAULT_DISK_SIZE = 100
-
 
 class SoftLayerAutoScaleDriver(AutoScaleDriver):
-    """
-    SoftLayer node driver
-
-    Extra node attributes:
-        - password: root password
-        - hourlyRecurringFee: hourly price (if applicable)
-        - recurringFee      : flat rate    (if applicable)
-        - recurringMonths   : The number of months in which the recurringFee
-         will be incurred.
-    """
 
     _VALUE_TO_SCALE_OPERATOR_TYPE_MAP = {
         '>': AutoScaleOperator.GT,
